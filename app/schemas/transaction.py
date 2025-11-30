@@ -5,8 +5,14 @@ from pydantic import BaseModel
 
 #definindos os tipos de cada item da minha compra do cartão(transação)
 #esse e o formato da transação que vai retornar na API
-class Transaction(BaseModel):
-    id: int
+
+class TransactionBase(BaseModel): #atributes from incoming transaction
     description: str
-    category: str
     amount: float
+    category: str
+
+class TransactionCreate(TransactionBase): #creating the transaction from the TransactionBase (request/entrada)
+    pass
+
+class Transaction(TransactionBase): #will read and return to JSON now with the id (response/saida)
+    id: int
